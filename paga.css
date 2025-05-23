@@ -1,0 +1,11 @@
+body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f9ff;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #5a7ca0,rgb(25, 75, 102));
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
