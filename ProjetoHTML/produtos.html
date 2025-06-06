@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>TEMPSENSE - Chuveiros Inteligentes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="prod.css" />
+</head>
+<body class="bg-pure-white font-sans">
+    <nav class="bg-ocean-blue text-white py-4 px-6 shadow-md sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html">
+                <div class="flex items-center space-x-2">
+                    <img src="logo.png" alt="Logo TEMPSENSE" class="w-10 h-10" />
+                    <span class="text-blue-navy font-bold text-xl">
+                        TEMP<span class="text-blue-primary">SENSE</span>
+                    </span>
+                </div>
+            </a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#inicio" class="hover:text-light-blue transition duration-300">Início</a>
+                <a href="#produtos" class="hover:text-light-blue transition duration-300">Produtos</a>
+                <a href="#comparativo" class="hover:text-light-blue transition duration-300">Comparativo</a>
+                <a href="#licença" class="hover:text-light-blue transition duration-300">Licença</a>
+            </div>
+            <div class="md:hidden">
+                <button id="menu-toggle" class="focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden mt-4 bg-ocean-blue">
+            <a href="#inicio" class="block py-2 px-4 text-white hover:bg-navy-blue">Início</a>
+            <a href="#produtos" class="block py-2 px-4 text-white hover:bg-navy-blue">Produtos</a>
+            <a href="#comparativo" class="block py-2 px-4 text-white hover:bg-navy-blue">Comparativo</a>
+            <a href="#licença" class="block py-2 px-4 text-white hover:bg-navy-blue">Licença</a>
+        </div>
+    </nav>
+
+    <section id="inicio" class="wave-bg py-20 px-6">
+        <div class="container mx-auto flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h1 class="text-4xl md:text-5xl font-bold text-navy-blue mb-6">Conheça a Linha TEMPSENSE</h1>
+                <p class="text-lg text-gray-700 mb-8">
+                    Descubra nossa coleção de chuveiros inteligentes inspirados no mar, projetados para transformar seu banho em uma experiência única e relaxante.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#produtos" class="bg-ocean-blue hover:bg-navy-blue text-white font-semibold py-3 px-6 rounded-lg transition duration-300 text-center">Ver Produtos</a>
+                    <a href="#comparativo" class="bg-transparent border-2 border-ocean-blue text-ocean-blue hover:bg-light-blue hover:border-light-blue font-semibold py-3 px-6 rounded-lg transition duration-300 text-center">Comparar Modelos</a>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <div class="relative w-80 h-80">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="prod.js"></script>
+</body>
+</html>
+
+    <section id="produtos" class="py-20 px-6 bg-pure-white">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-navy-blue mb-4">Nossa Linha de Produtos</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Conheça nossa coleção completa de chuveiros TEMPSENSE, cada um projetado com design inspirado no mar e tecnologia avançada.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden transition duration-300 relative">
+                    <span class="product-badge bg-ocean-blue text-white">Exclusivo</span>
+                    <img src="pacifico.png" alt="Chuveiro Oceano" class="w-full h-auto object-contain cursor-pointer" onclick="abrirModal(this)">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-navy-blue mb-2">TEMPSENSE Pacífico</h3>
+                        <p class="text-gray-600 mb-4">Nossa edição exclusiva com design de luxo e recursos premium para a experiência de banho definitiva.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-ocean-blue">R$ 2.499,00</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="modal" class="fixed inset-0 bg-black bg-opacity-80 hidden flex items-center justify-center z-50" onclick="fecharModal()">
+                    <span class="absolute top-4 right-6 text-white text-4xl font-bold cursor-pointer" onclick="fecharModal()">&times;</span>
+                    <img id="imgModal" class="max-w-[90vw] max-h-[80vh] rounded-lg shadow-lg object-contain" alt="Imagem Ampliada">
+                </div>
+                
+                <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden transition duration-300 relative">
+                    <span class="product-badge bg-sand-beige text-navy-blue">Compacto</span>
+                    <img src="lagoa.png" alt="Chuveiro Oceano" class="w-full h-auto object-contain cursor-pointer" onclick="abrirModal(this)">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-navy-blue mb-2">TEMPSENSE Lagoa</h3>
+                        <p class="text-gray-600 mb-4">Modelo compacto ideal para banheiros pequenos, sem abrir mão do design e funcionalidades essenciais.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-ocean-blue">R$ 799,00</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="modal" class="fixed inset-0 bg-black bg-opacity-80 hidden flex items-center justify-center z-50" onclick="fecharModal()">
+                    <span class="absolute top-4 right-6 text-white text-4xl font-bold cursor-pointer" onclick="fecharModal()">&times;</span>
+                    <img id="imgModal" class="max-w-[90vw] max-h-[80vh] rounded-lg shadow-lg object-contain" alt="Imagem Ampliada">
+                </div>
+                
+                <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden transition duration-300 relative">
+                    <span class="product-badge bg-ocean-blue text-white">Família</span>
+                    <img src="familia.png" alt="Chuveiro Oceano" class="w-full h-auto object-contain cursor-pointer" onclick="abrirModal(this)">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-navy-blue mb-2">TEMPSENSE Família</h3>
+                        <p class="text-gray-600 mb-4">Projetado para famílias, com design amplo e recursos que atendem às necessidades de todos os membros.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-ocean-blue">R$ 1.599,00</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="modal" class="fixed inset-0 bg-black bg-opacity-80 hidden flex items-center justify-center z-50" onclick="fecharModal()">
+                    <span class="absolute top-4 right-6 text-white text-4xl font-bold cursor-pointer" onclick="fecharModal()">&times;</span>
+                    <img id="imgModal" class="max-w-[90vw] max-h-[80vh] rounded-lg shadow-lg object-contain" alt="Imagem Ampliada">
+                </div>
+                
+                <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden transition duration-300 relative">
+                    <span class="product-badge bg-light-blue text-navy-blue">Terapêutico</span>
+                     <img src="terapeutico.png" alt="Chuveiro Oceano" class="w-full h-auto object-contain cursor-pointer" onclick="abrirModal(this)">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-navy-blue mb-2">TEMPSENSE Terapia</h3>
+                        <p class="text-gray-600 mb-4">Modelo terapêutico com jatos especiais para massagem e relaxamento muscular após um longo dia.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-ocean-blue">R$ 1.799,00</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="modal" class="fixed inset-0 bg-black bg-opacity-80 hidden flex items-center justify-center z-50" onclick="fecharModal()">
+                    <span class="absolute top-4 right-6 text-white text-4xl font-bold cursor-pointer" onclick="fecharModal()">&times;</span>
+                    <img id="imgModal" class="max-w-[90vw] max-h-[80vh] rounded-lg shadow-lg object-contain" alt="Imagem Ampliada">
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="comparativo" class="py-20 px-6 bg-light-blue bg-opacity-10">
+  <div class="container mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-navy-blue mb-4">Compare Nossos Modelos</h2>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">Encontre o chuveiro TEMPSENSE perfeito para suas necessidades com nossa tabela comparativa.</p>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full bg-white rounded-xl shadow-lg overflow-hidden">
+        <thead class="bg-ocean-blue text-white">
+          <tr>
+            <th class="py-4 px-6 text-left">Características</th>
+            <th class="py-4 px-6 text-center">Lagoa</th>
+            <th class="py-4 px-6 text-center">Família</th>
+            <th class="py-4 px-6 text-center">Terapia</th>
+            <th class="py-4 px-6 text-center">Pacífico</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-gray-200">
+            <td class="py-4 px-6 font-medium">Preço</td>
+            <td class="py-4 px-6 text-center">R$ 799,00</td>
+            <td class="py-4 px-6 text-center">R$ 1.599,00</td>
+            <td class="py-4 px-6 text-center">R$ 1.799,00</td>
+            <td class="py-4 px-6 text-center">R$ 2.499,00</td>
+          </tr>
+          <tr class="border-b border-gray-200 bg-gray-50">
+            <td class="py-4 px-6 font-medium">Tipo de Controle</td>
+            <td class="py-4 px-6 text-center">Manual</td>
+            <td class="py-4 px-6 text-center">Digital</td>
+            <td class="py-4 px-6 text-center">Touch</td>
+            <td class="py-4 px-6 text-center">Touch + Voz</td>
+          </tr>
+          <tr class="border-b border-gray-200">
+            <td class="py-4 px-6 font-medium">Display</td>
+            <td class="py-4 px-6 text-center">Básico</td>
+            <td class="py-4 px-6 text-center">LED</td>
+            <td class="py-4 px-6 text-center">LCD Colorido</td>
+            <td class="py-4 px-6 text-center">LCD HD</td>
+          </tr>
+          <tr class="border-b border-gray-200 bg-gray-50">
+            <td class="py-4 px-6 font-medium">Jatos de Água</td>
+            <td class="py-4 px-6 text-center">1</td>
+            <td class="py-4 px-6 text-center">4</td>
+            <td class="py-4 px-6 text-center">6</td>
+            <td class="py-4 px-6 text-center">7</td>
+          </tr>
+          <tr class="border-b border-gray-200">
+            <td class="py-4 px-6 font-medium">Economia de Água</td>
+            <td class="py-4 px-6 text-center">Básica</td>
+            <td class="py-4 px-6 text-center">Avançada</td>
+            <td class="py-4 px-6 text-center">Avançada</td>
+            <td class="py-4 px-6 text-center">Premium</td>
+          </tr>
+          <tr class="border-b border-gray-200 bg-gray-50">
+            <td class="py-4 px-6 font-medium">Iluminação</td>
+            <td class="py-4 px-6 text-center">
+              <svg class="w-5 h-5 text-gray-400 mx-auto" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+              </svg>
+            </td>
+            <td class="py-4 px-6 text-center">LED RGB</td>
+            <td class="py-4 px-6 text-center">LED RGB</td>
+            <td class="py-4 px-6 text-center">Cromoterapia</td>
+          </tr>
+          <tr class="border-b border-gray-200">
+            <td class="py-4 px-6 font-medium">Material</td>
+            <td class="py-4 px-6 text-center">Plástico Premium</td>
+            <td class="py-4 px-6 text-center">ABS Reforçado</td>
+            <td class="py-4 px-6 text-center">Metal Cromado</td>
+            <td class="py-4 px-6 text-center">Aço Inoxidável</td>
+          </tr>
+          <tr class="bg-gray-50">
+            <td class="py-4 px-6 font-medium">Garantia</td>
+            <td class="py-4 px-6 text-center">1 ano</td>
+            <td class="py-4 px-6 text-center">2 anos</td>
+            <td class="py-4 px-6 text-center">3 anos</td>
+            <td class="py-4 px-6 text-center">5 anos</td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- Botão ADQUIRA AGORA centralizado -->
+<div class="flex justify-center mt-8">
+  <a href="pagamento.html" class="inline-block bg-sand-beige hover:bg-white text-navy-blue font-bold text-lg py-4 px-10 rounded-lg transition duration-300 transform hover:scale-105">
+    ADQUIRA AGORA
+  </a>
+</div>
+
+    </div>
+  </div>
+</section>
+
+
+    <section id="licença" class="py-20 px-6 gradient-bg text-white">
+        <div class="container mx-auto">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Adquira a nossa Licença</h2>
+                <p class="text-xl mb-8 opacity-90">Tenha acesso vitalício ao nosso sistema, com benefícios exclusivos para clientes que valorizam tecnologia inteligente e duradoura.</p>
+                
+                <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-8 mb-10">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-light-blue bg-opacity-30 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2">Até 20% de Desconto</h3>
+                            <p class="opacity-80">Na aquisição da Licença Perpétua TEMPSENSE</p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-light-blue bg-opacity-30 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2">Acesso Prioritário</h3>
+                            <p class="opacity-80">Seja o primeiro a conhecer e adquirir novos lançamentos</p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-light-blue bg-opacity-30 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2">Garantia Estendida</h3>
+                            <p class="opacity-80">Cobertura adicional para todos os produtos adquiridos com a licença</p>
+                        </div>
+                    </div>
+                </div>
+                <a href="compra.html" class="inline-block bg-sand-beige hover:bg-white text-navy-blue font-bold text-lg py-4 px-10 rounded-lg transition duration-300 transform hover:scale-105">
+                    SAIBA MAIS
+                </a>
+            </div>
+        </div>
+    </section>

@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TempSense - Pagamento de Licença Perpétua</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f7fa;
+        }
+        .gradient-bg {
+            background: #173c54;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .product-card.selected {
+            border-color: #173c54;
+            box-shadow: 0 0 0 2px rgba(23, 60, 84, 0.3);
+        }
+        .payment-method.selected {
+            border-color: #173c54;
+            background-color: #f0f7fa;
+        }
+        .step-active {
+            color: #173c54;
+            border-color: #173c54;
+            background-color: #f0f7fa;
+        }
+        .step-completed {
+            color: white;
+            border-color: #173c54;
+            background-color: #173c54;
+        }
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        .hamburger-line {
+            width: 24px;
+            height: 2px;
+            background-color: white;
+            margin: 5px 0;
+            transition: all 0.3s ease-in-out;
+        }
+        .hamburger.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+        .shower-img {
+            width: 60px;
+            height: 60px;
+            background-color: #f0f7fa;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        @media (max-width: 768px) {
+            .shower-img {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <header class="gradient-bg text-white py-4 shadow-md">
+            <div class="container mx-auto px-4 md:px-6 flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <img src="logo.png" alt="Logo TEMPSENSE" class="w-10 h-10" />
+                    <span class="text-blue-navy font-bold text-xl">TEMP<span class="text-blue-primary">SENSE</span></span>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-6">
+                    <a href="index.html" class="hover:text-sky-100 font-medium">Voltar</a>
+                    <a href="#" class="hover:text-sky-100 font-medium">Contato</a>
+                </nav>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="hamburger-btn" class="hamburger focus:outline-none">
+                        <div class="hamburger-line"></div>
+                        <div class="hamburger-line"></div>
+                        <div class="hamburger-line"></div>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="mobile-menu fixed top-0 left-0 h-full w-64 bg-gray-800 z-50 shadow-lg p-5">
+                <div class="flex justify-between items-center mb-6">
+                    <div class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="12" cy="12" r="6" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 9v3l2 2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span class="ml-2 font-medium">TempSense</span>
+                    </div>
+                    <button id="close-menu-btn" class="text-white focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <nav class="flex flex-col space-y-4">
+                    <a href="index.html" class="text-white hover:text-sky-100 py-2 border-b border-gray-700">Início</a>
+                    <a href="#" class="text-white hover:text-sky-100 py-2 border-b border-gray-700">Produtos</a>
+                    <a href="#" class="text-white hover:text-sky-100 py-2 border-b border-gray-700">Licenciamento</a>
+                    <a href="#" class="text-white hover:text-sky-100 py-2 border-b border-gray-700">Suporte</a>
+                    <a href="#" class="text-white hover:text-sky-100 py-2">Contato</a>
+                </nav>
+            </div>
+            
+            <!-- Mobile Menu Overlay -->
+            <div id="menu-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow container mx-auto px-4 md:px-6 py-8">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Licença Perpétua TempSense</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Adquira a licença perpétua para o seu chuveiro TempSense e desfrute de todas as funcionalidades premium sem mensalidades.
+                </p>
+            </div>
+
+            <!-- Progress Steps -->
+            <div class="max-w-4xl mx-auto mb-10">
+                <div class="flex justify-between">
+                    <div class="flex flex-col items-center">
+                        <div class="w-10 h-10 rounded-full border-2 flex items-center justify-center step-completed mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <span class="text-sm font-medium text-[#173c54]">Selecionar Produto</span>
+                    </div>
+                    <div class="flex-grow mx-4 mt-5">
+                        <div class="h-0.5 bg-[#173c54]"></div>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-10 h-10 rounded-full border-2 flex items-center justify-center step-active mb-2">
+                            <span class="text-sm font-semibold">2</span>
+                        </div>
+                        <span class="text-sm font-medium text-gray-800">Pagamento</span>
+                    </div>
+                    <div class="flex-grow mx-4 mt-5">
+                        <div class="h-0.5 bg-gray-300"></div>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-10 h-10 rounded-full border-2 flex items-center justify-center border-gray-300 mb-2">
+                            <span class="text-sm font-semibold text-gray-500">3</span>
+                        </div>
+                        <span class="text-sm font-medium text-gray-500">Confirmação</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="max-w-6xl mx-auto">
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Main Content - Left Side -->
+                    <div class="md:col-span-2 space-y-8">
+                        <!-- Product Selection -->
+                        <div class="bg-white rounded-xl shadow-sm p-6">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">Selecione seu modelo TempSense</h3>
+                            <!-- Modal com descrição centralizada e nome destacado -->
+                             <div id="modal" class="fixed inset-0 bg-black bg-opacity-60 hidden flex items-center justify-center z-50 px-4 py-6" onclick="fecharModal(event)">
+                                <div class="flex flex-col items-center bg-transparent text-center max-w-2xl w-full relative px-4">
+                                    <span class="absolute top-4 right-6 text-white text-4xl font-bold cursor-pointer" onclick="fecharModal(event)">&times;</span>
+                                    <img id="imgModal" class="max-w-full max-h-[60vh] rounded-lg shadow-lg object-contain mb-4" alt="Imagem Ampliada">
+                                    <p id="imgDescricao" class="text-white text-base whitespace-pre-line leading-relaxed"></p>
+                                </div>
+                            </div>
+                            <!-- Produtos -->
+                             <div class="space-y-4">
+                                <!-- TempSense Lagoa -->
+                                 <div class="product-card border rounded-lg p-4 flex items-center cursor-pointer" onclick="abrirModal('lagoa.png', ' Lagoa\nSimplicidade e eficiência para o dia a dia. Com controle manual e jato único, o Lagoa oferece uma experiência confortável a um ótimo custo-benefício. Ideal para quem busca um chuveiro prático, com economia básica de água e garantia de 1 ano.')">
+                                    <div class="shower-img mr-4">
+                                        <img src="lagoa.png" class="w-10 h-10" alt="Lagoa">
+                                    </div>
+                                    <div class="flex-grow">
+                                        <h4 class="font-medium text-gray-800">TempSense Lagoa</h4>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-sm text-gray-500">Preço do produto</div>
+                                        <div class="font-medium">R$ 799,00</div>
+                                    </div>
+                                </div>
+                                <!-- TempSense Família -->
+                                 <div class="product-card border rounded-lg p-4 flex items-center cursor-pointer" onclick="abrirModal('familia.png', ' Família\nPensado para toda a família, este modelo digital com 4 jatos de água traz LED e economia avançada. Feito em ABS reforçado, combina resistência e modernidade. Acompanha garantia estendida de 2 anos.')">
+                                    <div class="shower-img mr-4">
+                                        <img src="familia.png" class="w-10 h-10" alt="Família">
+                                    </div>
+                                    <div class="flex-grow">
+                                        <h4 class="font-medium text-gray-800">TempSense Família</h4>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-sm text-gray-500">Preço do produto</div>
+                                        <div class="font-medium">R$ 1.599,00</div>
+                                    </div>
+                                </div>
+                                <!-- TempSense Terapia -->
+                                 <div class="product-card border rounded-lg p-4 flex items-center cursor-pointer" onclick="abrirModal('terapeuticopng', ' Terapia\nConforto e tecnologia para transformar o banho em um momento de relaxamento. Com controle touch, 6 jatos, LCD colorido e LED RGB, o modelo Terapia une beleza e eficiência com economia avançada. Estrutura em metal cromado e 3 anos de garantia.')">
+                                    <div class="shower-img mr-4">
+                                        <img src="terapeutico.png" class="w-10 h-10" alt="Terapia">
+                                    </div>
+                                    <div class="flex-grow">
+                                        <h4 class="font-medium text-gray-800">TempSense Terapia</h4>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-sm text-gray-500">Preço do produto</div>
+                                        <div class="font-medium">R$ 1.799,00</div>
+                                    </div>
+                                </div>
+                                <!-- TempSense Pacífico -->
+                                 <div class="product-card border rounded-lg p-4 flex items-center cursor-pointer" onclick="abrirModal('pacifico.png', ' Pacífico\nO mais completo da linha, com comando por toque e voz, 7 jatos potentes, LCD HD e cromoterapia para uma experiência sensorial. Economia premium de água e design em aço inoxidável garantem durabilidade e sofisticação. Coberto por 5 anos de garantia.')">
+                                    <div class="shower-img mr-4">
+                                        <img src="pacifico.png" class="w-10 h-10" alt="Pacífico">
+                                    </div>
+                                    <div class="flex-grow">
+                                        <h4 class="font-medium text-gray-800">TempSense Pacífico</h4>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-sm text-gray-500">Preço do produto</div>
+                                        <div class="font-medium">R$ 2.499,00</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Script -->
+                             <script>
+                             function abrirModal(src, descricao) {
+                                document.getElementById("imgModal").src = src;
+                                // Separar primeira linha como título destacado
+                                const partes = descricao.split('\n');
+                                const titulo = `<span class="text-2xl font-bold text-white">${partes[0]}</span><br>`;
+                                const corpo = partes.slice(1).join('\n');
+                                document.getElementById("imgDescricao").innerHTML = titulo + corpo;
+                                document.getElementById("modal").classList.remove("hidden");
+                            }
+                            function fecharModal(event) {
+                                const modal = document.getElementById("modal");
+                                if (event.target === modal || event.target.tagName === "SPAN") {
+                                    modal.classList.add("hidden");
+                                    document.getElementById("imgModal").src = "";
+                                    document.getElementById("imgDescricao").innerHTML = "";
+                                }
+                                }
+                                </script>
+
+                        <!-- Payment Methods -->
+                        <div class="bg-white rounded-xl shadow-sm p-6">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">Método de pagamento</h3>
+                            
+                            <div class="space-y-4">
+                                <!-- PIX -->
+                                <div class="payment-method border rounded-lg p-4 flex items-center cursor-pointer selected" data-method="pix">
+                                    <div class="w-6 h-6 rounded-full border-2 border-[#173c54] flex items-center justify-center mr-3">
+                                        <div class="w-3 h-3 rounded-full bg-[#173c54]"></div>
+                                    </div>
+                                    <div class="bg-emerald-100 p-2 rounded-lg mr-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-emerald-600" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M10.5 20.5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm6.5-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-.33-7H8.5l-.13-.27L6.45 7.5H3v1h2.75l1.92 3.8L7.5 13v1h10v-1H8.58l.12-.27L10 10.5h5.17l2.5-4H21v-1h-4.33l-.5 1-1.5 3zm-6.5-5l1.5-3h-1.34l-1.5 3h1.34z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="flex-grow">
+                                        <h4 class="font-medium text-gray-800">PIX</h4>
+                                        <p class="text-sm text-gray-500">Pagamento instantâneo</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="text-sm text-emerald-600 font-medium">10% de desconto</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Cartão de Crédito -->
+                                <div class="payment-method border rounded-lg p-4 flex items-center cursor-pointer" data-method="credit">
+                                    <div class="w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center mr-3">
+                                        <div class="w-3 h-3 rounded-full bg-white"></div>
+                                    </div>
+                                    <div class="bg-indigo-100 p-2 rounded-lg mr-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                                        </svg>
+                                    </div>
+                                    <div class="flex-grow">
+                                        <h4 class="font-medium text-gray-800">Cartão de Crédito</h4>
+                                        <p class="text-sm text-gray-500">Visa, Mastercard, Elo, American Express</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="text-sm text-gray-600 font-medium">Em até 12x</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Boleto -->
+                                <div class="payment-method border rounded-lg p-4 flex items-center cursor-pointer" data-method="boleto">
+                                    <div class="w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center mr-3">
+                                        <div class="w-3 h-3 rounded-full bg-white"></div>
+                                    </div>
+                                    <div class="bg-amber-100 p-2 rounded-lg mr-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                        </svg>
+                                    </div>
+                                    <div class="flex-grow">
+                                        <h4 class="font-medium text-gray-800">Boleto Bancário</h4>
+                                        <p class="text-sm text-gray-500">Vencimento em 3 dias úteis</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="text-sm text-amber-600 font-medium">5% de desconto</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- PIX Payment Details -->
+                        <div id="pix-details" class="bg-white rounded-xl shadow-sm p-6">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">Detalhes do pagamento via PIX</h3>
+                            
+                            <div class="flex flex-col md:flex-row items-center">
+                                <div class="md:w-1/2 flex justify-center mb-6 md:mb-0">
+                                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                                        <svg class="h-48 w-48" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                            <!-- QR Code Background -->
+                                            <rect x="0" y="0" width="200" height="200" fill="white"/>
+                                            
+                                            <!-- QR Code Pattern - Simplified representation -->
+                                            <!-- Position Detection Patterns -->
+                                            <!-- Top Left -->
+                                            <rect x="10" y="10" width="30" height="30" fill="black"/>
+                                            <rect x="15" y="15" width="20" height="20" fill="white"/>
+                                            <rect x="20" y="20" width="10" height="10" fill="black"/>
+                                            
+                                            <!-- Top Right -->
+                                            <rect x="160" y="10" width="30" height="30" fill="black"/>
+                                            <rect x="165" y="15" width="20" height="20" fill="white"/>
+                                            <rect x="170" y="20" width="10" height="10" fill="black"/>
+                                            
+                                            <!-- Bottom Left -->
+                                            <rect x="10" y="160" width="30" height="30" fill="black"/>
+                                            <rect x="15" y="165" width="20" height="20" fill="white"/>
+                                            <rect x="20" y="170" width="10" height="10" fill="black"/>
+                                            
+                                            <!-- QR Code Data Pattern (simplified) -->
+                                            <path d="M50,10 h10 v10 h-10 z M70,10 h10 v10 h-10 z M90,10 h10 v10 h-10 z M110,10 h10 v10 h-10 z M130,10 h10 v10 h-10 z
+                                                   M50,30 h10 v10 h-10 z M70,30 h10 v10 h-10 z M90,30 h10 v10 h-10 z M110,30 h10 v10 h-10 z M130,30 h10 v10 h-10 z
+                                                   M10,50 h10 v10 h-10 z M30,50 h10 v10 h-10 z M50,50 h10 v10 h-10 z M70,50 h10 v10 h-10 z M90,50 h10 v10 h-10 z M110,50 h10 v10 h-10 z M130,50 h10 v10 h-10 z M150,50 h10 v10 h-10 z M170,50 h10 v10 h-10 z
+                                                   M10,70 h10 v10 h-10 z M30,70 h10 v10 h-10 z M50,70 h10 v10 h-10 z M70,70 h10 v10 h-10 z M90,70 h10 v10 h-10 z M110,70 h10 v10 h-10 z M130,70 h10 v10 h-10 z M150,70 h10 v10 h-10 z M170,70 h10 v10 h-10 z
+                                                   M10,90 h10 v10 h-10 z M30,90 h10 v10 h-10 z M50,90 h10 v10 h-10 z M70,90 h10 v10 h-10 z M90,90 h10 v10 h-10 z M110,90 h10 v10 h-10 z M130,90 h10 v10 h-10 z M150,90 h10 v10 h-10 z M170,90 h10 v10 h-10 z
+                                                   M10,110 h10 v10 h-10 z M30,110 h10 v10 h-10 z M50,110 h10 v10 h-10 z M70,110 h10 v10 h-10 z M90,110 h10 v10 h-10 z M110,110 h10 v10 h-10 z M130,110 h10 v10 h-10 z M150,110 h10 v10 h-10 z M170,110 h10 v10 h-10 z
+                                                   M10,130 h10 v10 h-10 z M30,130 h10 v10 h-10 z M50,130 h10 v10 h-10 z M70,130 h10 v10 h-10 z M90,130 h10 v10 h-10 z M110,130 h10 v10 h-10 z M130,130 h10 v10 h-10 z M150,130 h10 v10 h-10 z M170,130 h10 v10 h-10 z
+                                                   M50,150 h10 v10 h-10 z M70,150 h10 v10 h-10 z M90,150 h10 v10 h-10 z M110,150 h10 v10 h-10 z M130,150 h10 v10 h-10 z
+                                                   M50,170 h10 v10 h-10 z M70,170 h10 v10 h-10 z M90,170 h10 v10 h-10 z M110,170 h10 v10 h-10 z M130,170 h10 v10 h-10 z" fill="black"/>
+                                            
+                                            <!-- PIX Logo in the center -->
+                                            <g transform="translate(85, 85) scale(0.15)">
+                                                <path d="M86.6,0 L173.2,50 L173.2,150 L86.6,200 L0,150 L0,50 Z" fill="#32BCAD"/>
+                                                <path d="M86.6,30 L143.2,65 L143.2,135 L86.6,170 L30,135 L30,65 Z" fill="white"/>
+                                                <path d="M65,75 L65,125 L108.2,125 L108.2,75 Z M75,85 L98.2,85 L98.2,115 L75,115 Z" fill="#32BCAD"/>
+                                            </g>
+                                        </svg>
+                                    </div>
+                                </div>
+                                
+                                <div class="md:w-1/2 space-y-6">
+                                    <div>
+                                        <h4 class="font-medium text-gray-700 mb-2">Chave PIX:</h4>
+                                        <div class="flex items-center">
+                                            <input type="text" value="tempsense@pagamentos.com.br" readonly class="bg-gray-50 px-3 py-2 border border-gray-300 rounded-l-md text-sm text-gray-600 w-full">
+                                            <button type="button" id="copy-pix" class="bg-[#173c54] text-white px-3 py-2 rounded-r-md hover:bg-opacity-90 transition-colors">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
+                                                    <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <h4 class="font-medium text-gray-700 mb-2">Instruções:</h4>
+                                        <ol class="list-decimal list-inside space-y-2 text-gray-600 text-sm">
+                                            <li>Abra o aplicativo do seu banco</li>
+                                            <li>Selecione a opção de pagamento via PIX</li>
+                                            <li>Escaneie o QR Code ou copie e cole a chave PIX</li>
+                                            <li>Confirme o valor de <span class="font-medium text-[#173c54]" id="pix-amount">R$ 470,20</span></li>
+                                            <li>Finalize o pagamento</li>
+                                        </ol>
+                                    </div>
+                                    
+                                    <div class="bg-amber-50 p-4 rounded-lg border border-amber-100">
+                                        <div class="flex items-start">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-600 mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                                            </svg>
+                                            <p class="text-amber-700 text-sm">
+                                                O pagamento será confirmado automaticamente em até 5 minutos após a transferência. Você receberá um e-mail com o código de ativação da licença.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Credit Card Payment Details (Hidden by default) -->
+                        <div id="credit-details" class="bg-white rounded-xl shadow-sm p-6 hidden">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">Detalhes do pagamento com cartão</h3>
+                            
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="card-number" class="block text-sm font-medium text-gray-700 mb-1">Número do Cartão</label>
+                                    <input type="text" id="card-number" placeholder="0000 0000 0000 0000" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#173c54] focus:border-transparent">
+                                </div>
+                                
+                                <div>
+                                    <label for="card-name" class="block text-sm font-medium text-gray-700 mb-1">Nome no Cartão</label>
+                                    <input type="text" id="card-name" placeholder="Nome como está no cartão" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#173c54] focus:border-transparent">
+                                </div>
+                                
+                                <div>
+                                    <label for="card-expiry" class="block text-sm font-medium text-gray-700 mb-1">Data de Validade</label>
+                                    <input type="text" id="card-expiry" placeholder="MM/AA" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#173c54] focus:border-transparent">
+                                </div>
+                                
+                                <div>
+                                    <label for="card-cvv" class="block text-sm font-medium text-gray-700 mb-1">Código de Segurança (CVV)</label>
+                                    <input type="text" id="card-cvv" placeholder="123" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#173c54] focus:border-transparent">
+                                </div>
+                                
+                                <div>
+                                    <label for="card-installments" class="block text-sm font-medium text-gray-700 mb-1">Parcelas</label>
+                                    <select id="card-installments" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#173c54] focus:border-transparent">
+                                        <option value="1">1x de R$ 522,44 (sem juros)</option>
+                                        <option value="2">2x de R$ 261,22 (sem juros)</option>
+                                        <option value="3">3x de R$ 174,15 (sem juros)</option>
+                                        <option value="4">4x de R$ 130,61 (sem juros)</option>
+                                        <option value="5">5x de R$ 104,49 (sem juros)</option>
+                                        <option value="6">6x de R$ 87,07 (sem juros)</option>
+                                    </select>
+                                </div>
+                                
+                                <div>
+                                    <label for="card-cpf" class="block text-sm font-medium text-gray-700 mb-1">CPF do Titular</label>
+                                    <input type="text" id="card-cpf" placeholder="000.000.000-00" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#173c54] focus:border-transparent">
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6">
+                                <button type="button" class="w-full py-3 px-4 bg-[#173c54] hover:bg-opacity-90 text-white font-medium rounded-md shadow-sm transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#173c54]">
+                                    Finalizar Pagamento
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Boleto Payment Details (Hidden by default) -->
+                        <div id="boleto-details" class="bg-white rounded-xl shadow-sm p-6 hidden">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">Detalhes do pagamento com boleto</h3>
+                            
+                            <div class="space-y-6">
+                                <div>
+                                    <label for="boleto-name" class="block text-sm font-medium text-gray-700 mb-1">Nome Completo</label>
+                                    <input type="text" id="boleto-name" placeholder="Seu nome completo" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#173c54] focus:border-transparent">
+                                </div>
+                                
+                                <div>
+                                    <label for="boleto-cpf" class="block text-sm font-medium text-gray-700 mb-1">CPF</label>
+                                    <input type="text" id="boleto-cpf" placeholder="000.000.000-00" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#173c54] focus:border-transparent">
+                                </div>
+                                
+                                <div>
+                                    <label for="boleto-email" class="block text-sm font-medium text-gray-700 mb-1">E-mail</label>
+                                    <input type="email" id="boleto-email" placeholder="seu@email.com" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#173c54] focus:border-transparent">
+                                </div>
+                                
+                                <div class="bg-amber-50 p-4 rounded-lg border border-amber-100">
+                                    <div class="flex items-start">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-600 mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                                        </svg>
+                                        <p class="text-amber-700 text-sm">
+                                            O boleto será enviado para o seu e-mail e terá vencimento em 3 dias úteis. Após o pagamento, a compensação pode levar até 2 dias úteis.
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <button type="button" class="w-full py-3 px-4 bg-[#173c54] hover:bg-opacity-90 text-white font-medium rounded-md shadow-sm transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#173c54]">
+                                        Gerar Boleto
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Order Summary - Right Side -->
+                    <div class="space-y-6">
+                        <div class="bg-white rounded-xl shadow-sm p-6 sticky top-6">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">Resumo do pedido</h3>
+                            
+                            <div class="space-y-4">
+                                <div class="flex justify-between pb-4 border-b border-gray-100">
+                                    <span class="text-gray-600">Produto</span>
+                                    <span class="font-medium text-gray-800" id="summary-product">TempSense Lagoa</span>
+                                </div>
+                                
+                                <div class="flex justify-between pb-4 border-b border-gray-100">
+                                    <span class="text-gray-600">Licença perpétua</span>
+                                    <span class="font-medium text-gray-800">R$ 522,44</span>
+                                </div>
+                                
+                                <div class="flex justify-between pb-4 border-b border-gray-100" id="discount-row">
+                                    <span class="text-gray-600">Desconto (PIX)</span>
+                                    <span class="font-medium text-emerald-600">-R$ 52,24</span>
+                                </div>
+                                
+                                <div class="flex justify-between text-lg">
+                                    <span class="font-medium text-gray-800">Total</span>
+                                    <span class="font-bold text-[#173c54]" id="summary-total">R$ 470,20</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6">
+                                <button type="button" id="checkout-button" class="w-full py-3 px-4 bg-[#173c54] hover:bg-opacity-90 text-white font-medium rounded-md shadow-sm transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#173c54] flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                                    </svg>
+                                    Finalizar Compra
+                                </button>
+                            </div>
+                            
+                            <div class="mt-4 flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-sm text-gray-500">Pagamento seguro</span>
+                            </div>
+                            
+                            <div class="mt-6 pt-6 border-t border-gray-100">
+                                <h4 class="font-medium text-gray-700 mb-3">Benefícios da licença perpétua:</h4>
+                                <ul class="space-y-2">
+                                    <li class="flex items-start">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-500 mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                        </svg>
+                                        <span class="text-sm text-gray-600">Pagamento único, sem mensalidades</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-500 mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                        </svg>
+                                        <span class="text-sm text-gray-600">Acesso vitalício ao sistema TempSense</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-500 mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                        </svg>
+                                        <span class="text-sm text-gray-600">Atualizações automáticas incluídas</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-500 mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                        </svg>
+                                        <span class="text-sm text-gray-600">Suporte técnico proporcional ao modelo</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-xl shadow-sm p-6">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Precisa de ajuda?</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#173c54] mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                                    </svg>
+                                    <span class="text-sm text-gray-600">Dúvidas sobre a licença? <a href="#" class="text-[#173c54] hover:underline">Consulte nossa FAQ</a></span>
+                                </div>
+                                <div class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#173c54] mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                                    </svg>
+                                    <span class="text-sm text-gray-600">Contato: <a href="tel:+551199999999" class="text-[#173c54] hover:underline">(11) 9999-9999</a></span>
+                                </div>
+                                <div class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#173c54] mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                                    </svg>
+                                    <span class="text-sm text-gray-600">E-mail: <a href="mailto:suporte@tempsense.com.br" class="text-[#173c54] hover:underline">suporte@tempsense.com.br</a></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white py-6 mt-12">
+            <div class="container mx-auto px-4 md:px-6">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-4 md:mb-0">
+                        <div class="flex items-center">
+                            <span class="ml-2 font-medium">TempSense</span>
+                        </div>
+                        <p class="text-sm text-gray-400 mt-1">© 2025 TempSense. Todos os direitos reservados.</p>
+                    </div>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="border-t border-gray-700 mt-4 pt-4 flex flex-wrap justify-center md:justify-start text-sm text-gray-400">
+                    <a href="#" class="mr-4 hover:text-white mb-2">Termos de Uso</a>
+                    <a href="#" class="mr-4 hover:text-white mb-2">Política de Privacidade</a>
+                    <a href="#" class="mr-4 hover:text-white mb-2">Política de Cookies</a>
+                    <a href="#" class="hover:text-white mb-2">Ajuda</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Mobile menu functionality
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuOverlay = document.getElementById('menu-overlay');
+        
+        hamburgerBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            menuOverlay.classList.remove('hidden');
+            hamburgerBtn.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        function closeMenu() {
+            mobileMenu.classList.remove('active');
+            menuOverlay.classList.add('hidden');
+            hamburgerBtn.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        closeMenuBtn.addEventListener('click', closeMenu);
+        menuOverlay.addEventListener('click', closeMenu);
+        
+        // Product data
+        const products = {
+            'lagoa': { 
+                name: 'TempSense Lagoa', 
+                price: 799.00,
+                serial: 'TS-L-2023-45678'
+            },
+            'familia': { 
+                name: 'TempSense Família', 
+                price: 1599.00,
+                serial: 'TS-F-2023-56789'
+            },
+            'terapia': { 
+                name: 'TempSense Terapia', 
+                price: 1799.00,
+                serial: 'TS-T-2023-67890'
+            },
+            'pacifico': { 
+                name: 'TempSense Pacífico', 
+                price: 2499.00,
+                serial: 'TS-P-2023-78901'
+            }
+        };
+        
+        // Payment methods
+        const paymentMethodsData = {
+            'pix': { discount: 0.10 },
+            'credit': { discount: 0 },
+            'boleto': { discount: 0.05 }
+        };
+        
+        // License price
+        const licensePrice = 522.44;
+        
+        // Format currency
+        function formatCurrency(value) {
+            return `R$ ${value.toFixed(2).replace('.', ',')}`;
+        }
+        
+        // DOM elements
+        const productCards = document.querySelectorAll('.product-card');
+        const paymentMethods = document.querySelectorAll('.payment-method');
+        const summaryProduct = document.getElementById('summary-product');
+        const summarySerial = document.getElementById('summary-serial');
+        const summaryTotal = document.getElementById('summary-total');
+        const discountRow = document.getElementById('discount-row');
+        const pixAmount = document.getElementById('pix-amount');
+        const copyPixBtn = document.getElementById('copy-pix');
+        const checkoutButton = document.getElementById('checkout-button');
+        
+        // Payment method details
+        const pixDetails = document.getElementById('pix-details');
+        const creditDetails = document.getElementById('credit-details');
+        const boletoDetails = document.getElementById('boleto-details');
+        
+        // Current selections
+        let currentProduct = 'lagoa';
+        let currentPaymentMethod = 'pix';
+        
+        // Update order summary
+        function updateSummary() {
+            const product = products[currentProduct];
+            const method = paymentMethodsData[currentPaymentMethod];
+            
+            summaryProduct.textContent = product.name;
+            summarySerial.textContent = product.serial;
+            
+            let discount = 0;
+            if (method.discount > 0) {
+                discount = licensePrice * method.discount;
+                discountRow.classList.remove('hidden');
+                discountRow.innerHTML = `<span class="text-gray-600">Desconto (${currentPaymentMethod === 'pix' ? 'PIX' : 'Boleto'})</span><span class="font-medium text-emerald-600">-${formatCurrency(discount)}</span>`;
+            } else {
+                discountRow.classList.add('hidden');
+            }
+            
+            const total = licensePrice - discount;
+            summaryTotal.textContent = formatCurrency(total);
+            
+            if (pixAmount) {
+                pixAmount.textContent = formatCurrency(total);
+            }
+        }
+        
+        // Update payment method details
+        function updatePaymentDetails() {
+            pixDetails.classList.add('hidden');
+            creditDetails.classList.add('hidden');
+            boletoDetails.classList.add('hidden');
+            
+            if (currentPaymentMethod === 'pix') {
+                pixDetails.classList.remove('hidden');
+            } else if (currentPaymentMethod === 'credit') {
+                creditDetails.classList.remove('hidden');
+            } else if (currentPaymentMethod === 'boleto') {
+                boletoDetails.classList.remove('hidden');
+            }
+        }
+        
+        // Product selection
+        productCards.forEach(card => {
+            card.addEventListener('click', () => {
+                // Remove selected class from all cards
+                productCards.forEach(c => c.classList.remove('selected'));
+                
+                // Add selected class to clicked card
+                card.classList.add('selected');
+                
+                // Update current product
+                currentProduct = card.dataset.product;
+                
+                // Update summary
+                updateSummary();
+            });
+        });
+        
+        // Payment method selection
+        paymentMethods.forEach(method => {
+            method.addEventListener('click', () => {
+                // Remove selected class from all methods
+                paymentMethods.forEach(m => {
+                    m.classList.remove('selected');
+                    m.querySelector('.w-6').classList.remove('border-[#173c54]');
+                    m.querySelector('.w-6').classList.add('border-gray-300');
+                    m.querySelector('.w-3').classList.add('bg-white');
+                    m.querySelector('.w-3').classList.remove('bg-[#173c54]');
+                });
+                
+                // Add selected class to clicked method
+                method.classList.add('selected');
+                method.querySelector('.w-6').classList.add('border-[#173c54]');
+                method.querySelector('.w-6').classList.remove('border-gray-300');
+                method.querySelector('.w-3').classList.remove('bg-white');
+                method.querySelector('.w-3').classList.add('bg-[#173c54]');
+                
+                // Update current payment method
+                currentPaymentMethod = method.dataset.method;
+                
+                // Update summary and payment details
+                updateSummary();
+                updatePaymentDetails();
+            });
+        });
+        
+        // Copy PIX key
+        copyPixBtn.addEventListener('click', () => {
+            const pixKey = 'tempsense@pagamentos.com.br';
+            navigator.clipboard.writeText(pixKey).then(() => {
+                // Create a notification
+                const notification = document.createElement('div');
+                notification.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-md shadow-lg z-50 animate-fade-in';
+                notification.textContent = 'Chave PIX copiada para a área de transferência!';
+                document.body.appendChild(notification);
+                
+                // Remove notification after 3 seconds
+                setTimeout(() => {
+                    notification.classList.add('opacity-0');
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 300);
+                }, 3000);
+            });
+        });
+        
+        // Checkout button
+        checkoutButton.addEventListener('click', () => {
+            // Create a modal
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 flex items-center justify-center z-50';
+            modal.innerHTML = `
+                <div class="fixed inset-0 bg-black bg-opacity-50"></div>
+                <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4 relative z-10">
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-green-500 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Pagamento Processado!</h3>
+                        <p class="text-gray-600 mb-6">Seu pagamento está sendo processado. Você receberá um e-mail com os detalhes da sua licença em breve.</p>
+                        <button type="button" class="w-full py-2 px-4 bg-[#173c54] hover:bg-opacity-90 text-white font-medium rounded-md shadow-sm transition-colors duration-300 focus:outline-none">
+                            Fechar
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            document.body.style.overflow = 'hidden';
+            
+            // Close modal when clicking the button or outside
+            const closeModal = () => {
+                document.body.removeChild(modal);
+                document.body.style.overflow = '';
+            };
+            
+            modal.querySelector('button').addEventListener('click', closeModal);
+            modal.querySelector('.fixed.inset-0').addEventListener('click', closeModal);
+        });
+        
+        // Input mask for credit card fields
+        const cardNumberInput = document.getElementById('card-number');
+        if (cardNumberInput) {
+            cardNumberInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 16) value = value.slice(0, 16);
+                
+                // Format with spaces
+                let formattedValue = '';
+                for (let i = 0; i < value.length; i++) {
+                    if (i > 0 && i % 4 === 0) formattedValue += ' ';
+                    formattedValue += value[i];
+                }
+                
+                e.target.value = formattedValue;
+            });
+        }
+        
+        const cardExpiryInput = document.getElementById('card-expiry');
+        if (cardExpiryInput) {
+            cardExpiryInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 4) value = value.slice(0, 4);
+                
+                if (value.length > 2) {
+                    e.target.value = value.slice(0, 2) + '/' + value.slice(2);
+                } else {
+                    e.target.value = value;
+                }
+            });
+        }
+        
+        const cardCvvInput = document.getElementById('card-cvv');
+        if (cardCvvInput) {
+            cardCvvInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 3) value = value.slice(0, 3);
+                e.target.value = value;
+            });
+        }

@@ -3,7 +3,7 @@
     theme: {
       extend: {
         colors: {
-          'ocean-blue': '#0077b6',
+          'ocean-blue': 'rgb(19, 84, 107)',
           'light-blue': '#F5DEB3',
           'navy-blue': 'F5DEB3',
           'sand-beige': '#f5e1b9',

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TempSense - Licença Perpétua</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="paga.css" />
+
+</head>
+<body>
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="gradient-bg text-white py-6">
+            <div class="container mx-auto px-4 md:px-6 flex items-center justify-between">
+                <a href="index.html">
+                <div class="flex items-center space-x-2">
+                    <img src="logo.png" alt="Logo TEMPSENSE" class="w-10 h-10" />
+                    <span class="text-blue-navy font-bold text-xl">
+                        TEMP<span class="text-blue-primary">SENSE</span>
+                    </span>
+                </div>
+            </a>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="container mx-auto px-4 md:px-6 py-8">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Adquirir Licença Perpétua TempSense</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Garanta acesso vitalício ao sistema inteligente de controle de temperatura do seu chuveiro TempSense. 
+                    A ativação da licença é feita uma única vez, com suporte e funcionalidades proporcionais ao modelo adquirido.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Product Selection -->
+                <div class="md:col-span-2 bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Escolha seu Modelo</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                        <div class="border border-sky-200 rounded-lg p-4 transition-all duration-300 card-hover cursor-pointer bg-sky-50" id="model-lagoa">
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="font-semibold text-sky-800">Lagoa</h4>
+                                <span class="bg-sky-100 text-sky-700 px-2 py-1 rounded text-xs font-medium">Compacto</span>
+                            </div>
+                            <div class="flex justify-between text-sm text-gray-600 mb-2">
+                                <span>Preço do Chuveiro:</span>
+                                <span class="font-medium">R$ 799,00</span>
+                            </div>
+                            <div class="flex justify-between text-sm font-medium">
+                                <span>Licença Perpétua:</span>
+                                <span class="text-sky-700">R$ 249,00</span>
+                            </div>
+                        </div>
+
+                        <div class="border border-sky-200 rounded-lg p-4 transition-all duration-300 card-hover cursor-pointer" id="model-oceano">
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="font-semibold text-sky-800">Oceano</h4>
+                                <span class="bg-sky-100 text-sky-700 px-2 py-1 rounded text-xs font-medium">Essencial</span>
+                            </div>
+                            <div class="flex justify-between text-sm text-gray-600 mb-2">
+                                <span>Preço do Chuveiro:</span>
+                                <span class="font-medium">R$ 899,00</span>
+                            </div>
+                            <div class="flex justify-between text-sm font-medium">
+                                <span>Licença Perpétua:</span>
+                                <span class="text-sky-700">R$ 249,00</span>
+                            </div>
+                        </div>
+
+                        <div class="border border-sky-200 rounded-lg p-4 transition-all duration-300 card-hover cursor-pointer" id="model-eco">
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="font-semibold text-sky-800">Eco</h4>
+                                <span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-medium">Ecológico</span>
+                            </div>
+                            <div class="flex justify-between text-sm text-gray-600 mb-2">
+                                <span>Preço do Chuveiro:</span>
+                                <span class="font-medium">R$ 1.199,00</span>
+                            </div>
+                            <div class="flex justify-between text-sm font-medium">
+                                <span>Licença Perpétua:</span>
+                                <span class="text-sky-700">R$ 249,00</span>
+                            </div>
+                        </div>
+
+                        <div class="border border-sky-200 rounded-lg p-4 transition-all duration-300 card-hover cursor-pointer" id="model-coral">
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="font-semibold text-sky-800">Coral</h4>
+                                <span class="bg-sky-100 text-sky-700 px-2 py-1 rounded text-xs font-medium">Intermediário</span>
+                            </div>
+                            <div class="flex justify-between text-sm text-gray-600 mb-2">
+                                <span>Preço do Chuveiro:</span>
+                                <span class="font-medium">R$ 1.299,00</span>
+                            </div>
+                            <div class="flex justify-between text-sm font-medium">
+                                <span>Licença Perpétua:</span>
+                                <span class="text-sky-700">R$ 299,00</span>
+                            </div>
+                        </div>
+
+                        <div class="border border-sky-200 rounded-lg p-4 transition-all duration-300 card-hover cursor-pointer" id="model-familia">
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="font-semibold text-sky-800">Família</h4>
+                                <span class="bg-sky-100 text-sky-700 px-2 py-1 rounded text-xs font-medium">Familiar</span>
+                            </div>
+                            <div class="flex justify-between text-sm text-gray-600 mb-2">
+                                <span>Preço do Chuveiro:</span>
+                                <span class="font-medium">R$ 1.599,00</span>
+                            </div>
+                            <div class="flex justify-between text-sm font-medium">
+                                <span>Licença Perpétua:</span>
+                                <span class="text-sky-700">R$ 299,00</span>
+                            </div>
+                        </div>
+
+                        <div class="border border-sky-200 rounded-lg p-4 transition-all duration-300 card-hover cursor-pointer" id="model-terapia">
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="font-semibold text-sky-800">Terapia</h4>
+                                <span class="bg-purple-100 text-purple-700 px-2 py-1 rounded text-xs font-medium">Terapêutico</span>
+                            </div>
+                            <div class="flex justify-between text-sm text-gray-600 mb-2">
+                                <span>Preço do Chuveiro:</span>
+                                <span class="font-medium">R$ 1.799,00</span>
+                            </div>
+                            <div class="flex justify-between text-sm font-medium">
+                                <span>Licença Perpétua:</span>
+                                <span class="text-sky-700">R$ 349,00</span>
+                            </div>
+                        </div>
+
+                        <div class="border border-sky-200 rounded-lg p-4 transition-all duration-300 card-hover cursor-pointer" id="model-atlantico">
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="font-semibold text-sky-800">Atlântico</h4>
+                                <span class="bg-indigo-100 text-indigo-700 px-2 py-1 rounded text-xs font-medium">Premium</span>
+                            </div>
+                            <div class="flex justify-between text-sm text-gray-600 mb-2">
+                                <span>Preço do Chuveiro:</span>
+                                <span class="font-medium">R$ 1.899,00</span>
+                            </div>
+                            <div class="flex justify-between text-sm font-medium">
+                                <span>Licença Perpétua:</span>
+                                <span class="text-sky-700">R$ 349,00</span>
+                            </div>
+                        </div>
+
+                        <div class="border border-sky-200 rounded-lg p-4 transition-all duration-300 card-hover cursor-pointer" id="model-pacifico">
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="font-semibold text-sky-800">Pacífico</h4>
+                                <span class="bg-amber-100 text-amber-700 px-2 py-1 rounded text-xs font-medium">Exclusivo</span>
+                            </div>
+                            <div class="flex justify-between text-sm text-gray-600 mb-2">
+                                <span>Preço do Chuveiro:</span>
+                                <span class="font-medium">R$ 2.499,00</span>
+                            </div>
+                            <div class="flex justify-between text-sm font-medium">
+                                <span>Licença Perpétua:</span>
+                                <span class="text-sky-700">R$ 349,00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-sky-50 rounded-lg p-5 mb-8">
+                        <h3 class="text-lg font-semibold text-sky-800 mb-3">O que está incluído na Licença:</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-center">
+                                <span class="text-sky-600 mr-2"></span>
+                                <span>Acesso vitalício ao sistema TempSense</span>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="text-sky-600 mr-2"></span>
+                                <span>Controle inteligente de temperatura</span>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="text-sky-600 mr-2"></span>
+                                <span>Atualizações automáticas</span>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="text-sky-600 mr-2"></span>
+                                <span>Garantia de uso contínuo</span>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="text-sky-600 mr-2"></span>
+                                <span>Suporte técnico proporcional ao modelo</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-amber-50 rounded-lg p-5">
+                        <h3 class="text-lg font-semibold text-amber-800 mb-3">Observações:</h3>
+                        <ul class="space-y-2 text-amber-700">
+                            <li class="flex items-start">
+                                <span class="text-amber-600 mr-2 mt-1">•</span>
+                                <span>O pagamento da licença é único e sem mensalidades</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-amber-600 mr-2 mt-1">•</span>
+                                <span>A ativação é digital e vinculada ao número de série do chuveiro</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-amber-600 mr-2 mt-1">•</span>
+                                <span>O suporte técnico é escalonado conforme a categoria do produto</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Checkout Form -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Finalizar Compra</h3>
+                    
+                    <div class="bg-sky-50 rounded-lg p-4 mb-6">
+                        <h4 class="font-medium text-sky-800 mb-2">Resumo da Compra</h4>
+                        <div id="summary-model" class="flex justify-between text-sm mb-1">
+                            <span>Chuveiro Coral:</span>
+                            <span class="font-medium">R$ 1.299,00</span>
+                        </div>
+                        <div id="summary-license" class="flex justify-between text-sm mb-1">
+                            <span>Licença Perpétua:</span>
+                            <span class="font-medium">R$ 299,00</span>
+                        </div>
+                        <div class="border-t border-sky-200 mt-2 pt-2 flex justify-between font-semibold">
+                            <span>Total:</span>
+                            <span id="summary-total" class="text-sky-700">R$ 1.598,00</span>
+                        </div>
+                    </div>
+                    
+                    <form id="checkout-form">
+                        <div class="mb-5">
+                            <h4 class="font-medium text-gray-700 mb-3">Informações Pessoais</h4>
+                            <div class="space-y-3">
+                                <div>
+                                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nome Completo</label>
+                                    <input type="text" id="name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent" required>
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">E-mail</label>
+                                    <input type="email" id="email" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent" required>
+                                </div>
+                                <div>
+                                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Telefone</label>
+                                    <input type="tel" id="phone" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent" required>
+                                </div>
+                                <div>
+                                    <label for="company" class="block text-sm font-medium text-gray-700 mb-1">Empresa (opcional)</label>
+                                    <input type="text" id="company" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent">
+                                </div>
+                                <div>
+                                    <label for="serial" class="block text-sm font-medium text-gray-700 mb-1">Número de Série do Chuveiro</label>
+                                    <input type="text" id="serial" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <h4 class="font-medium text-gray-700 mb-3">Método de Pagamento</h4>
+                            <div class="space-y-3">
+                                <div class="flex items-center">
+                                    <input type="radio" id="credit-card" name="payment" value="credit-card" class="h-4 w-4 text-sky-600 focus:ring-sky-500 border-gray-300" checked>
+                                    <label for="credit-card" class="ml-2 block text-sm text-gray-700">Cartão de Crédito</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="radio" id="boleto" name="payment" value="boleto" class="h-4 w-4 text-sky-600 focus:ring-sky-500 border-gray-300">
+                                    <label for="boleto" class="ml-2 block text-sm text-gray-700">Boleto Bancário</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="radio" id="pix" name="payment" value="pix" class="h-4 w-4 text-sky-600 focus:ring-sky-500 border-gray-300">
+                                    <label for="pix" class="ml-2 block text-sm text-gray-700">PIX</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="credit-card-form" class="mb-6 space-y-3">
+                            <div>
+                                <label for="card-number" class="block text-sm font-medium text-gray-700 mb-1">Número do Cartão</label>
+                                <input type="text" id="card-number" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent" placeholder="0000 0000 0000 0000">
+                            </div>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label for="expiry" class="block text-sm font-medium text-gray-700 mb-1">Validade</label>
+                                    <input type="text" id="expiry" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent" placeholder="MM/AA">
+                                </div>
+                                <div>
+                                    <label for="cvv" class="block text-sm font-medium text-gray-700 mb-1">CVV</label>
+                                    <input type="text" id="cvv" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent" placeholder="123">
+                                </div>
+                            </div>
+                            <div>
+                                <label for="card-name" class="block text-sm font-medium text-gray-700 mb-1">Nome no Cartão</label>
+                                <input type="text" id="card-name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full py-3 px-4 bg-sky-600 hover:bg-sky-700 text-white font-medium rounded-md shadow-sm transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+                            Finalizar Compra
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white py-8 mt-12">
+            <div class="container mx-auto px-4 md:px-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">TempSense</h3>
+                        <p class="text-gray-400">Tecnologia avançada para o controle inteligente de temperatura do seu chuveiro.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Links Úteis</h3>
+                        <ul class="space-y-2 text-gray-400">
+                            <li><a href="#" class="hover:text-white">Sobre Nós</a></li>
+                            <li><a href="#" class="hover:text-white">Produtos</a></li>
+                            <li><a href="#" class="hover:text-white">Suporte</a></li>
+                            <li><a href="#" class="hover:text-white">Política de Privacidade</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Contato</h3>
+                        <ul class="space-y-2 text-gray-400">
+                            <li>contato@tempsense.com.br</li>
+                            <li>(11) 9999-9999</li>
+                            <li>Caçapava, SP - Brasil</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
+                    <p>&copy; 2025 TempSense. Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="paga.js"></script>
+    </body>
+    </html>
